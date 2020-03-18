@@ -15,12 +15,19 @@ public:
 	Vector(size_t size);
 	Vector(vector<double> s);
 	~Vector();
+	//Добавление элемента в вектор
 	void Add(double elem);
+	//Удаление эл-та из вектора
 	void Remove(double elem);
+	//Проверка на пустоту
 	bool IsEmpty();
+	//Получение последнего эл-та вектора
 	double Get();
+	//Печать как в файл, так и на экран
 	void Print(ostream& st);
+	//Очистка вектора
 	void Clear();
+	//Загрузка Вектора из файла
 	static Vector GetFromFile(fstream &s)
 	{
 		vector<double> resv;
@@ -33,9 +40,11 @@ public:
 		Vector res(resv);
 		return res;
 	}
+	//Получение коэффицента (квадратный корень из произведения максимума 
+	//и последнего числа (чтобы не было исключительных ситуаций, призведение берется по модулю))
 	static double GetCoef(vector<double>::iterator a, vector<double>::iterator b, const Vector &first)
 	{
-		vector<double>::iterator i = a;
+		auto i = a;
 		double max = *a;
 		bool ok = true;
 		while (ok)
@@ -50,14 +59,17 @@ public:
 		double c = sqrt(abs(max*(*b)));
 		return c;
 	}
+	//Сумма элементов
 	double Sum();
+	//Среднее арифметическое
 	double ArithmeticMean();
+	//Перегруженный modify с указанием границ преобразования в векторе
 	static Vector Modify(int a, int b, Vector SourceVector)
 	{
-		vector<double>::iterator f = SourceVector.v.begin();
-		vector<double>::iterator l = SourceVector.v.end()-1;
+		auto f = SourceVector.v.begin();
+		auto l = SourceVector.v.end()-1;
 		double c = GetCoef(f, l, SourceVector);
-		vector<double>::iterator i =SourceVector.v.begin()+a;
+		auto i =SourceVector.v.begin()+a;
 		while (i != SourceVector.v.begin()+b+1)
 		{
 			*i += c;
@@ -66,13 +78,14 @@ public:
 		Vector newVec(SourceVector);
 		return newVec;
 	}
+	//Стаднартный modify для преобразования всех эл-тов вектора
 	static Vector Modify(Vector first)
 	{
 		vector<double> res;
-		vector<double>::iterator a = first.v.begin();
-		vector<double>::iterator b = first.v.end()-1;
+		auto a = first.v.begin();
+		auto b = first.v.end()-1;
 		double coef = GetCoef(a, b, first);
-		vector<double>::iterator i = first.v.begin();
+		auto i = first.v.begin();
 		while (i != first.v.end())
 		{
 			*i += coef;
@@ -81,6 +94,7 @@ public:
 		Vector newV(first);
 		return newV;
 	}
+	//Функтор для генерации произвольных чисел
 	class RandomF
 	{
 		int Diap;
@@ -92,6 +106,7 @@ public:
 			return (rand() % (Diap + 1))*pow(-1, s);
 		}
 	};
+	//Заполнение файла рандомными числами с помощью random или genetate (выбор алгоритма по bool переменной IsRandom)
 	static ofstream FillFile(string FileName, int Count, int Diapazon, bool IsRandom)
 	{
 		ofstream result;
@@ -117,6 +132,7 @@ public:
 		result.close();
 		return result;
 	}
+	//Функтор для преобразования с помощью transform
 	class  Transform
 	{
 	private:
@@ -132,6 +148,7 @@ public:
 
 	
 	};
+	//Функтор для преобразования с помощью foreach
 	class  Foreach
 	{
 	private:
@@ -147,11 +164,13 @@ public:
 
 
 	};
+	//Modify с помощью transform
 	static Vector ModifyByTransform(Vector first)
 	{
 		transform(first.v.begin(), first.v.end(), first.v.begin(), Transform(first.v));
 		return first;
 	}
+	//Modify с помощью foreach
 	static Vector ForEach(Vector first)
 	{
 		for_each(first.v.begin(), first.v.end(), Foreach(first.v));
