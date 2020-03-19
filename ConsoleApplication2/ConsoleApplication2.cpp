@@ -1,5 +1,6 @@
 ﻿// ConsoleApplication2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+//Задание 1А (реализация вектором, Прибавить к каждому числу корень квадратный из произведения максимума и
+//последнего числа.)
 
 #include "pch.h"
 #include <iostream>
@@ -31,15 +32,15 @@ int menu()
 	cout << "12.Вывести результат в файл\n";
 	cout << "13.Вывести результат на экран\n";
 	cout << "0.Выход\n";
-	try
-	{
-		cin >> res;
-		cout << "\n\n";
-	}
-	catch (const std::exception&)
+	cin >> res;
+	getchar();
+	if (cin.fail())
 	{
 		res = -1;
+		cin.clear();
 	}
+		
+	cout << "\n\n";
 	return res;
 }
 
@@ -60,6 +61,9 @@ int main()
 		c = menu();
 		switch (c)
 		{
+		case 0:
+			cout << "До свидания\n";
+			break;
 		case 1:
 			getchar();
 			cout << "Имя файла : ";
@@ -139,9 +143,6 @@ int main()
 		case 13:
 			mv.Print(cout);
 			res.Print(cout);
-			break;
-		case 0:
-			cout << "До свидания\n";
 			break;
 		default:
 			cout << "Вы должны ввести число от 0 до 13\n";
