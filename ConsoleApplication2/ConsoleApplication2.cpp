@@ -65,7 +65,6 @@ int main()
 			cout << "До свидания\n";
 			break;
 		case 1:
-			getchar();
 			cout << "Имя файла : ";
 			getline(cin, FileName);
 
@@ -76,9 +75,7 @@ int main()
 			Vector::FillFile(FileName, count, diapazon, true);
 			break;
 		case 2:
-			getchar();
 			cout << "Имя файла : ";
-			
 			getline(cin, FileName);
 			cout << "Кол-во : ";
 			cin >> count;
@@ -87,7 +84,6 @@ int main()
 			Vector::FillFile(FileName, count, diapazon, false);
 			break;
 		case 3:
-			getchar();
 			cout << "Имя файла : ";
 			getline(cin, FileName);
 			file.open(FileName, std::ios::in);
@@ -110,7 +106,6 @@ int main()
 			res.Print(std::cout);
 			break;
 		case 7:
-			getchar();
 			cout << "First pos : ";
 			cin >> f;
 			cout << "\nLast pos : ";
@@ -138,6 +133,7 @@ int main()
 			getline(cin, FileName);
 			file.open(FileName, std::ios::out);
 			mv.Print(file);
+			res.Print(file);
 			file.close();
 			break;
 		case 13:
