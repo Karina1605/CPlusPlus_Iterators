@@ -74,10 +74,11 @@ double Vector::ArithmeticMean()
 	}
 	return s / c;
 }
-double Vector:: GetCoef(vector<double>::iterator a, vector<double>::iterator b, const Vector &first)
+double Vector:: GetCoef(const Vector &first)
 {
-	auto i = a;
-	double max = *a;
+	auto i = first.v.begin();
+	auto b = first.v.end() - 1;
+	double max = *i;
 	bool ok = true;
 	while (ok)
 	{
@@ -95,7 +96,7 @@ Vector Vector:: Modify(int a, int b, Vector SourceVector)
 {
 	auto f = SourceVector.v.begin();
 	auto l = SourceVector.v.end() - 1;
-	double c = GetCoef(f, l, SourceVector);
+	double c = GetCoef( SourceVector);
 	auto i = SourceVector.v.begin() + a;
 	while (i != SourceVector.v.begin() + b + 1)
 	{
@@ -110,7 +111,7 @@ Vector Vector:: Modify(Vector first)
 	vector<double> res;
 	auto a = first.v.begin();
 	auto b = first.v.end() - 1;
-	double coef = GetCoef(a, b, first);
+	double coef = GetCoef(first);
 	auto i = first.v.begin();
 	while (i != first.v.end())
 	{

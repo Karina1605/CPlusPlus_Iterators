@@ -22,7 +22,7 @@ public:
 	void Print(ostream& st);
 	void Clear();
 	static Vector GetFromFile(fstream &s);
-	static double GetCoef(vector<double>::iterator a, vector<double>::iterator b, const Vector &first);
+	static double GetCoef(const Vector &first);
 	double Sum();
 	double ArithmeticMean();
 	static Vector Modify(int a, int b, Vector SourceVector);
@@ -45,7 +45,7 @@ public:
 		double coef;
 	public:
 
-		Transform(vector<double> VD) { coef = GetCoef(VD.begin(), VD.end()-1, VD); };
+		Transform(vector<double> VD) { coef = GetCoef( VD); };
 		double operator()(double x)
 		{
 			return x + coef;
@@ -60,7 +60,7 @@ public:
 		double coef;
 	public:
 
-		Foreach(vector<double> VD) { coef = GetCoef(VD.begin(), VD.end() - 1, VD); };
+		Foreach(vector<double> VD) { coef = GetCoef( VD); };
 		void operator()(double &x)
 		{
 			x += coef;
