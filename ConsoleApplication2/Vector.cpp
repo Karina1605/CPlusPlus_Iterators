@@ -113,6 +113,7 @@ Vector Vector:: Modify(int a, int b, Vector SourceVector)
 }
 Vector Vector:: Modify(Vector first)
 {
+	//Modify для всех вызывается через версию для изменения части вектора
 	return Modify(0, first.v.size()-1, first);
 }
  ofstream Vector::FillFile(string FileName, int Count, int Diapazon, bool IsRandom)
