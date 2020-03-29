@@ -94,11 +94,16 @@ double Vector:: GetCoef(const Vector &first)
 }
 Vector Vector:: Modify(int a, int b, Vector SourceVector)
 {
+	//≈сли одно из значений параметров некорректно, вектор просто не мен€етс€
+	if (a > b || a > SourceVector.v.size() || b > SourceVector.v.size() || a < 0 || b < 0)
+		return SourceVector;
 	auto f = SourceVector.v.begin();
 	auto l = SourceVector.v.end() - 1;
 	double c = GetCoef( SourceVector);
 	auto i = SourceVector.v.begin() + a;
-	while (i != SourceVector.v.begin() + b + 1)
+	//»справлено условие цикла, есть веро€тность неопределенного поведени€ если b+1 выскочит за end()
+	// ак € понимаю, раз знвчени€ i идут подр€д, не нужно провер€ть на пустоту i при каждой итерации
+	while (i < SourceVector.v.end() && i != SourceVector.v.begin() + b + 1)
 	{
 		*i += c;
 		++i;
@@ -108,18 +113,7 @@ Vector Vector:: Modify(int a, int b, Vector SourceVector)
 }
 Vector Vector:: Modify(Vector first)
 {
-	vector<double> res;
-	auto a = first.v.begin();
-	auto b = first.v.end() - 1;
-	double coef = GetCoef(first);
-	auto i = first.v.begin();
-	while (i != first.v.end())
-	{
-		*i += coef;
-		++i;
-	}
-	Vector newV(first);
-	return newV;
+	return Modify(0, first.v.size()-1, first);
 }
  ofstream Vector::FillFile(string FileName, int Count, int Diapazon, bool IsRandom)
 {
