@@ -97,15 +97,13 @@ Vector Vector:: Modify(int a, int b, Vector SourceVector)
 	//!!!
 	if (a > b || a > SourceVector.v.size() || b > SourceVector.v.size() || a < 0 || b < 0)
 		return SourceVector;
-	auto f = SourceVector.v.begin();
-	auto l = SourceVector.v.end() - 1;
 	double c = GetCoef( SourceVector);
-	auto i = SourceVector.v.begin() + a;
+	auto iterator = SourceVector.v.begin() + a;
 	//!!!
-	while (i < SourceVector.v.end() && i != SourceVector.v.begin() + b + 1)
+	while (iterator < SourceVector.v.end() && iterator != SourceVector.v.begin() + b + 1)
 	{
-		*i += c;
-		++i;
+		*iterator += c;
+		++iterator;
 	}
 	Vector newVec(SourceVector);
 	return newVec;
